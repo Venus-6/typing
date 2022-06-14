@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" content="text/html">
+    <title>Регистрация | Тренажер слепой печати</title>
+    <link th:rel="stylesheet" th:href="@{/css/styles.css}"/>
+</head>
+<body>
+    <div class="center">
+        <h1>Регистрация</h1>
+        <div class="error" th:if="${error}" th:text="${error}" />
+        <form method="post" th:action="@{/signup}">
+            <div class="txt_field2 password">
+                <input type="text"  name="username" id="username" required>
+                <span></span>
+                <label>Username</label>
+            </div>
+            <div class="txt_field2 password">
+                <input type="text" name="email" id="email" required>
+                <span></span>
+                <label>Email</label>
+            </div>
+            <div class="txt_field2 password">
+                <input type="password" name="password" id="password-input" required>
+                <a href="#" class="password-control"  onclick="return show_hide_password(this);"></a>
+                <span></span>
+                <label>Password</label>
+            </div>
+            <input type="submit" value="Зарегестрироваться">
+            <div class="signup_link"></div>
+        </form>
+    </div>
+    <div class="footer">
+        <p>@erlion666</p>
+    </div>
+    <script th:src="@{/js/fun.js}"></script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" content="text/html">
+    <title>Сложность | Тренажер слепой печати</title>
+    <link th:rel="stylesheet" th:href="@{/css/lev_style.css}"/>
+</head>
+<body>
+<div class="offer">
+    <h1>Тренажер<br>слепой печати</h1>
+    <p>Ускорь прогресс обучения слепой<br>
+        печати с клавиатурным тренажером
+        и развивай ценные навыки<br>
+        набора текста!</p>
+</div>
+<div class="levels">
+    <a href="/user" class="user" th:text="${initial}"/>
+    <div class="level_button">
+        <h1>Сложность</h1>
+        <p>Выберите уровень сложности:</p>
+        <ul class="level_number">
+            <li class="one"><a href="/game/1">1</a></li>
+            <li class="one"><a href="/game/2">2</a></li>
+            <li class="one"><a href="/game/3">3</a></li>
+            <li class="one"><a href="/game/4">4</a></li>
+            <li class="one"><a href="/game/5">5</a></li>
+            <li class="two"><a href="/game/6">6</a></li>
+            <li class="two"><a href="/game/7">7</a></li>
+            <li class="two"><a href="/game/8">8</a></li>
+            <li class="two"><a href="/game/9">9</a></li>
+            <li class="two"><a href="/game/10">10</a></li>
+        </ul>
+    </div>
+</div>
+<div class="footer">
+    <p>@erlion666</p>
+</div>
+<script th:src="@{/js/fun.js}"></script>
+</body>
+</html>

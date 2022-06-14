@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" content="text/html">
+    <title>Профиль | Тренажер слепой печати</title>
+    <link rel="stylesheet" href="resources\css\user_page_st.css">
+    <link th:rel="stylesheet" th:href="@{/css/user_page_st.css}"/>
+</head>
+<body>
+    <div class="user_res">
+        <div class="tbl">
+            <div class="fixedHeader">
+                <table>
+                    <thead>
+                        <caption>Последние результаты</caption>
+                        <tr>
+                            <th>Дата</th>
+                            <th>Сложность</th>
+                            <th>Результат</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+            <div class="yScroll">
+                <table>
+                    <tbody>
+                        <tr th:each="res: ${results}">
+                            <td th:utext="${res.date}">Date</td>
+                            <td th:utext="${res.level}">Level</td>
+                            <td th:utext="${res.result}">Result</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="user_info">
+        <div class="username">
+            <p th:text="${user.username}"/>
+        </div>
+        <div class="but_block">
+            <form id = "delete" th:action = "@{/deleteUser}"  method="post">
+                <button>Удалить профиль</button>
+            </form>
+            <a href="/typing"><input type="button" value="Назад"></a>
+            <a href="/logout"><input type="button" value="Выход"></a>
+        </div>
+    </div>
+    <div class="footer">
+        <p>@erlion666</p>
+    </div>
+</body>
+</html>
