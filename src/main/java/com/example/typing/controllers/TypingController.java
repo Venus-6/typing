@@ -3,6 +3,7 @@ package com.example.typing.controllers;
 import com.example.typing.domain.Result;
 import com.example.typing.domain.State;
 import com.example.typing.domain.User;
+import com.example.typing.repos.ResultRepository;
 import com.example.typing.repos.UsersRepository;
 import com.example.typing.security.details.UserDetailsImpl;
 import com.example.typing.transfer.UserDto;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 import static com.example.typing.transfer.UserDto.*;
@@ -23,6 +26,9 @@ public class TypingController {
 
     @Autowired
     private UsersRepository usersRepository;
+
+    @Autowired
+    private ResultRepository resultRepository;
 
     @GetMapping("/typing")
     public String getLevelsPage(Authentication authentication, ModelMap model){
@@ -42,8 +48,9 @@ public class TypingController {
         UserDetailsImpl details = (UserDetailsImpl)authentication.getPrincipal();
         UserDto user = from(details.getUser());
         model.addAttribute("user", user);
-        //TODO:Вывод результатов в таблицу
-        //model.addAttribute("results", results);
+        List<Result> results = resultRepository.findAllByUser_id(user.getId());
+        Collections.reverse(results);
+        model.addAttribute("results", results);
         return "user";
     }
 

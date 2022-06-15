@@ -30,6 +30,7 @@ public class User {
 
     public static User form(UserForm form){
         return User.builder()
+                .id(form.getId())
                 .username(form.getUsername())
                 .email(form.getEmail())
                 .build();

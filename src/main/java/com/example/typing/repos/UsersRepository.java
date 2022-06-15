@@ -1,6 +1,5 @@
 package com.example.typing.repos;
 
-import com.example.typing.domain.Result;
 import com.example.typing.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
