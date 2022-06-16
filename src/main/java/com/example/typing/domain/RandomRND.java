@@ -17,7 +17,7 @@ public class RandomRND {
     private long id;
     private String text_rnd;
 
-    @ManyToOne(optional=false, cascade=CascadeType.ALL)
+    @ManyToOne(optional=false, cascade=CascadeType.MERGE)
     @JoinColumn(name = "level")
     private Level level;
 }
