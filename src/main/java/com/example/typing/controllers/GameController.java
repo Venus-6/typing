@@ -4,6 +4,7 @@ import com.example.typing.domain.Level;
 import com.example.typing.domain.RandomRND;
 import com.example.typing.domain.Result;
 import com.example.typing.domain.User;
+import com.example.typing.repos.LevelRepository;
 import com.example.typing.repos.RandomRNDRepository;
 import com.example.typing.repos.UsersRepository;
 import com.example.typing.security.details.UserDetailsImpl;
@@ -22,9 +23,9 @@ import static com.example.typing.transfer.UserDto.from;
 
 @Controller
 public class GameController {
-    long level;
-    Level levelResult;
+    Level level;
     String rnd_text;
+    long timer;
 
     @Autowired
     private UsersRepository usersRepository;
@@ -35,20 +36,23 @@ public class GameController {
     @Autowired
     private ResultService resultService;
 
+    @Autowired
+    private LevelRepository levelRepository;
+
     @GetMapping("/game/{id}")
     public String getGamePage(@PathVariable long id, ModelMap model){
-        level = id;
         List<RandomRND> rnds = randomRNDRepository.findAllByLevel(id);
         Random rnd = new Random();
         int i = rnd.nextInt(rnds.size());
         rnd_text = rnds.get(i).getText_rnd();
-        model.addAttribute("timer", new String());
+        level = levelRepository.findLevelById(id);
+        timer = System.currentTimeMillis();
         model.addAttribute("rnd_text", rnd_text);
         return "game";
     }
 
-    @PostMapping("/save_result")
-    public String saveResult(Authentication authentication, @ModelAttribute("timer") String timer){
+    @PostMapping(value="/save_result")
+    public String saveResult(Authentication authentication){
         //TODO: Сохранить результат
         UserDetailsImpl details = (UserDetailsImpl)authentication.getPrincipal();
 
@@ -56,14 +60,12 @@ public class GameController {
 
         if (userCandidate.isPresent()) {
             User user = userCandidate.get();
-            levelResult.setId(level);
 
-            Result result = Result.builder()
-                    .result(resultService.getStringResult(Long.valueOf(timer).longValue(), rnd_text))
-                    .date(resultService.getStringDate())
-                    .user_id(user)
-                    .level(levelResult)
-                    .build();
+            Result result = new Result();
+            result.setResult(resultService.getStringResult((System.currentTimeMillis() - timer)/1000, rnd_text));
+            result.setLevel(level);
+            result.setUser_id(user);
+            result.setDate(resultService.getStringDate());
 
             resultService.addResult(result);
         }
