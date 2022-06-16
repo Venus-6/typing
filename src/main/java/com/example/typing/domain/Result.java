@@ -17,11 +17,11 @@ public class Result {
     private String date;
     private String result;
 
-    @ManyToOne(optional=false, cascade=CascadeType.ALL)
+    @ManyToOne(optional=false,  cascade=CascadeType.MERGE)
     @JoinColumn(name = "user_id")
     private User user_id;
 
-    @ManyToOne(optional=false, cascade=CascadeType.ALL)
+    @ManyToOne(optional=false,  cascade=CascadeType.MERGE)
     @JoinColumn(name = "level")
     private Level level;
 }
